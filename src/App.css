@@ -13,6 +13,17 @@
   }
 }
 
+.component {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+}
+
+.MuiAutocomplete-root {
+  width: auto !important;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
