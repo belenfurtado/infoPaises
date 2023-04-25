@@ -95,8 +95,9 @@ export function Service() {
       <div className='component'>
         <Autocomplete
           onChange={(event, newSelectedRegion) => {
-            setCountriesOfTheRegion((getRegionCountries(newSelectedRegion)));
-            console.log(countriesOfTheRegion);
+            getRegionCountries(newSelectedRegion).then(
+              (countries) => setCountriesOfTheRegion(countries)
+            )
           }}
           options={getRegions(post)}
           style={{ width: 300 }}
@@ -122,7 +123,7 @@ export function Service() {
 
 function listOfCountries(countList) {
   const listCount = [];
-  if (countList != null) {
+  if (countList && countList.length > 0) {
     countList.forEach(element => {
       listCount.push(element.name.common);
     })
@@ -141,14 +142,13 @@ function getRegions(contList) {
 }
 
 function getRegionCountries(region) {
-  if (region != null) {
-    axios.get(baseURL + `/region/${region}`).then(
+  if (region !== null) {
+    return axios.get(baseURL + `/region/${region}`).then(
       response => {
-        console.log(listOfCountries(response.data));
         return listOfCountries(response.data);
       }
     )
-  }
+  } else return null;
 }
 
-export default Service
+export default Service;
